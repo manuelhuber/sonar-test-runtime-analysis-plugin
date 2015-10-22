@@ -48,7 +48,7 @@
                 <version>1.7</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <pluginClass>de.manuel_huber.sonar.TextfitPlugin</pluginClass>
+                    <pluginClass>de.manuel_huber.sonar.TestRuntimePlugin</pluginClass>
                 </configuration>
             </plugin>
         </plugins>

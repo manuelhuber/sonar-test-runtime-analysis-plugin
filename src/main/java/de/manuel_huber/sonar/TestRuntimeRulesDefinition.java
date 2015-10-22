@@ -6,7 +6,7 @@ import org.sonar.api.server.rule.RulesDefinition;
 /**
  * Created by Manuel on 21.10.2015.
  */
-public class TextfitRulesDefinition implements RulesDefinition {
+public class TestRuntimeRulesDefinition implements RulesDefinition {
 
     public static final String REPOSITORY_KEY = "textfit-rules";
     public static final String INCREASE50 = "50p-increase";
@@ -15,7 +15,7 @@ public class TextfitRulesDefinition implements RulesDefinition {
         NewRepository repo = context.createRepository(REPOSITORY_KEY, "java");
         repo.setName("Textfit");
 
-        repo.createRule(INCREASE50).setName("50% increase").setSeverity(Severity.INFO).setHtmlDescription("The Textfit for this Test has increased by over 50%");
+        repo.createRule(INCREASE50).setName("50% increase").setSeverity(Severity.INFO).setHtmlDescription("The runtime for this Test has increased by over 50%");
 
         repo.done();
 

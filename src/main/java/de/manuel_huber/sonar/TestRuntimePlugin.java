@@ -8,14 +8,14 @@ import java.util.List;
 /**
  * Created by Manuel on 21.10.2015.
  */
-public class TextfitPlugin extends SonarPlugin {
+public class TestRuntimePlugin extends SonarPlugin {
 
     public static String getSonarBaseURL() {
         return sonarBaseURL;
     }
 
     public static void setSonarBaseURL(String sonarBaseURL) {
-        de.manuel_huber.sonar.TextfitPlugin.sonarBaseURL = sonarBaseURL;
+        TestRuntimePlugin.sonarBaseURL = sonarBaseURL;
     }
 
     static String sonarBaseURL;
@@ -24,10 +24,10 @@ public class TextfitPlugin extends SonarPlugin {
     public List getExtensions() {
         return Arrays.asList
                 (
-                        TextfitDecorator.class,
-                        TextfitSensor.class
+                        TestRuntimeDecorator.class,
+                        TestRuntimeSensor.class
                         ,
-                        TextfitRulesDefinition.class
+                        TestRuntimeRulesDefinition.class
                 );
     }
 }

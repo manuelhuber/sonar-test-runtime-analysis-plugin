@@ -23,18 +23,18 @@ import org.sonar.api.test.TestPlan;
 /**
  * Created by Manuel on 21.10.2015.
  */
-public class TextfitDecorator implements Decorator {
+public class TestRuntimeDecorator implements Decorator {
 
     private final ResourcePerspectives resourcePerspectives;
     String baseURL;
 
 
-    public TextfitDecorator(ResourcePerspectives resourcePerspectives) {
+    public TestRuntimeDecorator(ResourcePerspectives resourcePerspectives) {
         this.resourcePerspectives = resourcePerspectives;
     }
 
 
-    public TextfitDecorator() {
+    public TestRuntimeDecorator() {
         this.resourcePerspectives = null;
     }
 
@@ -57,7 +57,7 @@ public class TextfitDecorator implements Decorator {
 
 
     public TestFileModel getTestFileModel(Resource resource) throws UnirestException {
-        baseURL = de.manuel_huber.sonar.TextfitPlugin.getSonarBaseURL();
+        baseURL = TestRuntimePlugin.getSonarBaseURL();
         HttpResponse<JsonNode> getResponse = Unirest.get(baseURL + "/api/tests/show")
                 .field("key", resource.getEffectiveKey()).asJson();
         Gson gson = new Gson();
@@ -83,7 +83,7 @@ public class TextfitDecorator implements Decorator {
                     Issuable issuable = resourcePerspectives.as(Issuable.class, resource);
                     if (issuable != null) {
                         Issue issue = issuable.newIssueBuilder()
-                                .ruleKey(RuleKey.of(TextfitRulesDefinition.REPOSITORY_KEY, TextfitRulesDefinition.INCREASE50))
+                                .ruleKey(RuleKey.of(TestRuntimeRulesDefinition.REPOSITORY_KEY, TestRuntimeRulesDefinition.INCREASE50))
                                 .attribute("File", resource.getPath())
                                 .attribute("TestCase", currentTestCase.name())
                                 .build();
