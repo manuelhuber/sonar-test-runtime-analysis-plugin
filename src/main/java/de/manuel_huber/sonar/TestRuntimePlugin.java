@@ -58,16 +58,6 @@ import java.util.List;
 })
 public class TestRuntimePlugin extends SonarPlugin {
 
-    private static String projectVersion;
-
-    public static String getProjectVersion() {
-        return projectVersion;
-    }
-
-    public static void setProjectVersion(String projectVersion) {
-        TestRuntimePlugin.projectVersion = projectVersion;
-    }
-
     public List getExtensions() {
         return Arrays.asList
                 (
