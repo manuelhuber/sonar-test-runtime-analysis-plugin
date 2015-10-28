@@ -6,9 +6,7 @@ package de.manuel_huber.sonar.model;
 public class TestCaseModel {
 
     String name;
-    String status;
     int durationInMs;
-    int coveredLines;
 
 
     public TestCaseModel() {
@@ -25,16 +23,6 @@ public class TestCaseModel {
     }
 
 
-    public String getStatus() {
-        return status;
-    }
-
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-
     public int getDurationInMs() {
         return durationInMs;
     }
@@ -44,13 +32,9 @@ public class TestCaseModel {
         this.durationInMs = durationInMs;
     }
 
-
-    public int getCoveredLines() {
-        return coveredLines;
+    public void setDurationInMs(long durationInMs) {
+        this.durationInMs = (int) durationInMs;
     }
 
 
-    public void setCoveredLines(int coveredLines) {
-        this.coveredLines = coveredLines;
-    }
 }

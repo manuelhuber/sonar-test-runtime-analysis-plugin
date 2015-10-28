@@ -5,12 +5,24 @@ package de.manuel_huber.sonar.model;
  */
 public class TestFileModel {
 
-    TestCaseModel[] tests;
+    String version;
 
+    TestCaseModel[] tests;
 
     public TestFileModel() {
     }
 
+    public TestFileModel(TestCaseModel[] testCaseModels){
+        this.tests = testCaseModels;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
     public TestCaseModel[] getTests() {
         return tests;
