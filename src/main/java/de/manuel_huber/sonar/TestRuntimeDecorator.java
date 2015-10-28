@@ -33,6 +33,7 @@ public class TestRuntimeDecorator implements Decorator {
     private final Settings settings;
     private DecoratorContext context;
     private Resource resource;
+    private String projectVersion;
 
     public TestRuntimeDecorator(ResourcePerspectives resourcePerspectives, Settings settings) {
         this.resourcePerspectives = resourcePerspectives;
@@ -56,6 +57,7 @@ public class TestRuntimeDecorator implements Decorator {
             System.out.println("----------------------Decorator----------------------");
             this.context = context;
             this.resource = resource;
+            projectVersion = settings.getProperties().get("sonar.projectVersion");
             try {
                 TestCaseModel[] previousTestCasesArray = getTestFileModel().getTests();
                 TestPlan currentTestPlan = resourcePerspectives.as(MutableTestPlan.class, resource);
