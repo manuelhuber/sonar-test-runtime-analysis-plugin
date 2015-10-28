@@ -15,11 +15,5 @@ public class TestRuntimeSensor implements Sensor {
 
 
     public void execute(SensorContext context) {
-        // The Settings are only availble from the SensorContext but I need them in the Decorator
-        // Current workaround: Save them in
-        String baseURL = context.settings().getString("sonar.core.serverBaseURL");
-        TestRuntimePlugin.setSonarBaseURL(baseURL);
-        context.settings().getProperties().get("sonar.projectVersion"); //Snapshot 1.0
-        context.settings().getProperties().get("sonar.moduleKey"); // htmlparser:htmlparser
     }
 }
