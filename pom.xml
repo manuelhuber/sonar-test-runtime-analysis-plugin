@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>mhu</groupId>
-    <artifactId>textfit-plugin</artifactId>
+    <artifactId>sonar-test-runtime-analysis-plugin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>sonar-plugin</packaging>
 
-    <name>Textfit</name>
+    <name>Sonar Test Runtime Analysis Plugin</name>
     <description>Analyse the Test Execution Time For Individual Tests</description>
 
     <dependencies>
@@ -51,7 +51,22 @@
                     <pluginClass>de.manuel_huber.sonar.TestRuntimePlugin</pluginClass>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>jrebel-maven-plugin</artifactId>
+                <version>1.1.5</version>
+                <executions>
+                    <execution>
+                        <id>generate-rebel-xml</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
 

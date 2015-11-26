@@ -2,7 +2,8 @@ package de.manuel_huber.sonar;
 
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -20,9 +21,14 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.test.MutableTestCase;
 import org.sonar.api.test.MutableTestPlan;
 import org.sonar.api.test.TestCase;
 import org.sonar.api.test.TestPlan;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Manuel on 21.10.2015.
@@ -70,12 +76,12 @@ public class TestRuntimeDecorator implements Decorator {
             }
         }
 
-        System.out.println("TEST");
+        System.out.println("______________________TEasda1111111111111sfasfdasfERS______________________");
     }
 
 
     public void checkTestCases(TestCaseModel[] previousTestCasesArray, TestPlan currentTestPlan) {
-        saveFirstTime(currentTestPlan);
+        saveDataForThisProjectVersion(currentTestPlan);
         for (TestCaseModel previousTestCase : previousTestCasesArray) {
             Iterable<TestCase> currentTestCaseIterable = currentTestPlan.testCasesByName(previousTestCase.getName());
             //this Iterable should only contain 1 item
@@ -131,15 +137,30 @@ public class TestRuntimeDecorator implements Decorator {
         return percentileIncrease;
     }
 
-    public void saveFirstTime(TestPlan currentTestPlan) {
-        TestFileModel testFileModel = testPlanToTestFileModel(currentTestPlan);
-        Gson gson = new Gson();
-        String save = gson.toJson(testFileModel);
-        context.saveMeasure(new Measure(TestRuntimeMetric.TEST_RUNTIME_SAVE, save));
+    public void saveDataForThisProjectVersion(TestPlan currentTestPlan) {
+        String runTimeSave = null;
+        try {
+            Measure measure = context.getMeasure(TestRuntimeMetric.TEST_RUNTIME_SAVE);
+            runTimeSave = measure.getData();
+        } catch (Exception e) {
+
+        }
+            Map<String, TestFileModel> saveMap;
+            Gson gson = new Gson();
+            if (runTimeSave == null || runTimeSave.isEmpty()) {
+                saveMap = new HashMap<String, TestFileModel>();
+            } else {
+                Type type = new TypeToken<Map<String, TestFileModel>>() {
+                }.getType();
+                saveMap = gson.fromJson(runTimeSave, type);
+            }
+            TestFileModel testFileModel = testPlanToTestFileModel(currentTestPlan);
+            saveMap.put(projectVersion, testFileModel);
+            context.saveMeasure(new Measure(TestRuntimeMetric.TEST_RUNTIME_SAVE, gson.toJson(saveMap)));
     }
 
     public TestFileModel testPlanToTestFileModel(TestPlan testPlan) {
-        Iterable<TestCase> testCases = testPlan.testCases();
+        Iterable<MutableTestCase> testCases = testPlan.testCases();
         testPlan.testCases();
         TestCaseModel[] testCaseArray = new TestCaseModel[Iterables.size(testCases)];
         int i = 0;
@@ -151,5 +172,4 @@ public class TestRuntimeDecorator implements Decorator {
         }
         return new TestFileModel(testCaseArray);
     }
-
 }

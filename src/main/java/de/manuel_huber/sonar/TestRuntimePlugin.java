@@ -64,7 +64,8 @@ public class TestRuntimePlugin extends SonarPlugin {
                         TestRuntimeDecorator.class,
                         TestRuntimeSensor.class,
                         TestRuntimeRulesDefinition.class,
-                        TestRuntimeMetric.class
+                        TestRuntimeMetric.class,
+                        TestRuntimeWidget.class
                 );
     }
 }

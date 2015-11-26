@@ -1,0 +1,17 @@
+<%
+
+%>
+
+<p>This is my first widget</p>
+<p>Display widget property: <%= widget_properties['max'] -%></p>
+<p>
+<%= configuration('sonar.jdbc.username') -%>
+</p>
+<p>
+<%= measure('test_runtime_save') -%>
+
+</p>
+<p>
+<%= measure('sqale_rating') -%>
+</p>
+<h3><%= format_measure(measure('dsm'), :default => 'test') -%></h3>
